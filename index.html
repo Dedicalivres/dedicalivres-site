@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+
+<html lang="fr">
+
+<head>
+
+  <meta charset="UTF-8" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Dédicalivres — Agenda des événements littéraires</title>
+
+  <meta name="description" content="Agenda des salons du livre, festivals littéraires, dédicaces, auteurs indépendants et événements autour du livre en France." />
+
+  <link rel="canonical" href="https://dedicalivres.fr/" />
+
+  <meta property="og:title" content="Dédicalivres — Agenda des événements littéraires" />
+
+  <meta property="og:description" content="Trouvez les salons du livre, festivals littéraires, dédicaces et rencontres avec des auteurs partout en France." />
+
+  <meta property="og:type" content="website" />
+
+  <meta property="og:image" content="banner.jpg" />
+
+  <script type="application/ld+json">
+
+  {
+
+    "@context": "https://schema.org",
+
+    "@type": "WebSite",
+
+    "name": "Dédicalivres",
+
+    "url": "https://dedicalivres.fr",
+
+    "description": "Agenda des salons du livre, festivals littéraires, dédicaces et rencontres avec des auteurs."
+
+  }
+
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
+
+  <link rel="stylesheet" href="style.css" />
+
+</head>
+
+<body>
+
+<header class="header">
+
+  <div class="container header-inner">
+
+    <a href="index.html" aria-label="Accueil Dédicalivres">
+
+      <img src="logo.png" class="logo" alt="Dédicalivres" />
+
+    </a>
+
+    <nav aria-label="Navigation principale">
+
+      <a href="#agenda">Agenda</a>
+
+      <a href="salons-du-livre.html">Salons</a>
+
+      <a href="auteurs-independants.html">Auteurs</a>
+
+      <a href="#soumettre">Soumettre</a>
+
+    </nav>
+
+  </div>
+
+</header>
+
+<section class="hero" aria-label="Bannière Dédicalivres"></section>
+
+<main class="container">
+
+  <section id="agenda" class="section">
+
+    <h2>Événements à venir</h2>
+
+    <p id="results-count">Chargement…</p>
+
+    <div class="filters">
+
+      <input id="search-input" type="search" placeholder="Rechercher un événement, une ville…" />
+
+      <select id="region-filter">
+
+        <option value="">Toutes les régions</option>
+
+        <option>Auvergne-Rhône-Alpes</option>
+
+        <option>Bourgogne-Franche-Comté</option>
+
+        <option>Bretagne</option>
+
+        <option>Centre-Val de Loire</option>
+
+        <option>Corse</option>
+
+        <option>Grand Est</option>
+
+        <option>Hauts-de-France</option>
+
+        <option>Île-de-France</option>
+
+        <option>Normandie</option>
+
+        <option>Nouvelle-Aquitaine</option>
+
+        <option>Occitanie</option>
+
+        <option>Pays de la Loire</option>
+
+        <option>Provence-Alpes-Côte d’Azur</option>
+
+      </select>
+
+      <select id="type-filter">
+
+        <option value="">Tous les types</option>
+
+        <option>Salon</option>
+
+        <option>Festival</option>
+
+        <option>Dédicace</option>
+
+        <option>Autre</option>
+
+      </select>
+
+      <input id="date-filter" type="date" />
+
+      <button id="apply-filters" class="btn-primary" type="button">Filtrer</button>
+
+      <button id="reset-filters" class="btn-secondary" type="button">Réinitialiser</button>
+
+    </div>
+
+    <div class="ux-actions">
+
+      <button id="mobile-map-toggle" class="btn-secondary mobile-map-toggle" type="button">Masquer la carte</button>
+
+      <button id="locate-me" class="btn-secondary" type="button">Me localiser</button>
+
+    </div>
+
+    <div class="agenda-layout">
+
+      <div>
+
+        <section id="events-grid" class="events-grid" aria-live="polite"></section>
+
+      </div>
+
+      <aside class="map-panel is-open" aria-label="Carte des événements">
+
+        <div id="map"></div>
+
+      </aside>
+
+    </div>
+
+  </section>
+
+  <section id="soumettre" class="section">
+
+    <h2>Proposer un événement</h2>
+
+    <form id="submission-form">
+
+      <input name="title" placeholder="Titre de l’événement" required />
+
+      <select name="type">
+
+        <option value="">Type d’événement</option>
+
+        <option>Salon</option>
+
+        <option>Festival</option>
+
+        <option>Dédicace</option>
+
+        <option>Autre</option>
+
+      </select>
+
+      <select name="region" id="region-submit">
+
+        <option value="">Région</option>
+
+        <option>Auvergne-Rhône-Alpes</option>
+
+        <option>Bourgogne-Franche-Comté</option>
+
+        <option>Bretagne</option>
+
+        <option>Centre-Val de Loire</option>
+
+        <option>Corse</option>
+
+        <option>Grand Est</option>
+
+        <option>Hauts-de-France</option>
+
+        <option>Île-de-France</option>
+
+        <option>Normandie</option>
+
+        <option>Nouvelle-Aquitaine</option>
+
+        <option>Occitanie</option>
+
+        <option>Pays de la Loire</option>
+
+        <option>Provence-Alpes-Côte d’Azur</option>
+
+      </select>
+
+      <div class="city-autocomplete-wrap">
+
+        <input id="city-input" name="city" list="city-suggestions" placeholder="Ville — commencez à taper puis choisissez dans la liste" autocomplete="off" required />
+
+        <datalist id="city-suggestions"></datalist>
+
+        <small id="city-help" class="field-help">Sélectionnez une ville proposée pour placer correctement l’événement sur la carte.</small>
+
+      </div>
+
+      <input type="hidden" name="lat" id="city-lat" />
+
+      <input type="hidden" name="lng" id="city-lng" />
+
+      <input name="start_date" type="date" />
+
+      <input name="end_date" type="date" />
+
+      <select name="price">
+
+        <option value="">Entrée</option>
+
+        <option>Gratuit</option>
+
+        <option>Payant</option>
+
+      </select>
+
+      <input name="website" type="url" placeholder="Site officiel" />
+
+      <textarea name="description" rows="5" placeholder="Description"></textarea>
+
+      <input name="image" type="file" accept="image/*" />
+
+      <button type="submit">Envoyer</button>
+
+      <p id="form-feedback"></p>
+
+    </form>
+
+  </section>
+
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+
+<script src="config.js"></script>
+
+<script src="app.js"></script>
+
+
+
+<script src="custom-cursor.js"></script>
+
+</body>
+
+</html>

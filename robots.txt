@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://dedicalivres.fr/sitemap.xml
